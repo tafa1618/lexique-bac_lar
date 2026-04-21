@@ -3,7 +3,7 @@
 > Outil de révision interactif bilingue **Français–Arabe** pour les candidats au Baccalauréat série **L-AR** du Sénégal.  
 > Conçu pour les élèves de niveau moyen souhaitant améliorer leur compréhension du vocabulaire de l'épreuve.
 
-🔗 **Accès direct :** [Ouvrir le lexique](https://ton-pseudo.github.io/lexique-bac-lar/)
+🔗 **Accès direct :** [Ouvrir le lexique](https://tafa1618.github.io/lexique-bac_lar/)
 
 ---
 
