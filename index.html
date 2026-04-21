@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexique BAC Français L-AR — Sénégal</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vert: #1a6b3a; --or: #c8962a; --or-clair: #f5e4b8;
+    --fond: #faf8f3; --fond2: #f0ece0; --texte: #1c1a14; --texte-doux: #5a5040;
+    --blanc: #ffffff; --rouge: #b03020; --bleu: #1a3a6b;
+    --violet: #6d28d9; --rose: #be185d; --teal: #0f766e; --orange: #c2410c;
+    --ombre: 0 2px 16px rgba(0,0,0,0.10);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Source Sans 3',sans-serif; background:var(--fond); color:var(--texte); min-height:100vh; }
+
+  header { background:linear-gradient(135deg,var(--vert) 0%,#0d4a26 100%); color:var(--blanc); padding:2.5rem 2rem 2rem; text-align:center; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events:none; }
+  .header-badge { display:inline-block; background:var(--or); color:var(--texte); font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:.3rem .9rem; border-radius:99px; margin-bottom:1rem; }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+  header .subtitle { font-size:.95rem; opacity:.82; margin-bottom:1.2rem; }
+  .header-arabic { font-family:'Amiri',serif; font-size:1.4rem; direction:rtl; opacity:.85; }
+  .stats-bar { display:flex; justify-content:center; gap:2rem; margin-top:1.5rem; flex-wrap:wrap; }
+  .stat { text-align:center; }
+  .stat-num { font-size:1.6rem; font-weight:700; color:var(--or); display:block; }
+  .stat-label { font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; opacity:.8; }
+
+  .controls { background:var(--blanc); border-bottom:2px solid var(--fond2); padding:1rem 1.5rem; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; justify-content:center; position:sticky; top:0; z-index:100; box-shadow:var(--ombre); }
+  .search-box { position:relative; flex:1; min-width:200px; max-width:320px; }
+  .search-box input { width:100%; padding:.6rem 1rem .6rem 2.4rem; border:2px solid var(--fond2); border-radius:8px; font-family:inherit; font-size:.95rem; background:var(--fond); color:var(--texte); transition:border-color .2s; }
+  .search-box input:focus { outline:none; border-color:var(--vert); }
+  .search-box::before { content:'🔍'; position:absolute; left:.75rem; top:50%; transform:translateY(-50%); font-size:.85rem; pointer-events:none; }
+  .filter-btn { padding:.45rem .9rem; border:2px solid transparent; border-radius:8px; font-family:inherit; font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s; background:var(--fond2); color:var(--texte-doux); }
+  .filter-btn.active { background:var(--vert); color:var(--blanc); border-color:var(--vert); }
+  .filter-btn:hover:not(.active) { border-color:var(--vert); color:var(--vert); }
+  .mode-btn { padding:.45rem .9rem; background:var(--or); color:var(--texte); border:none; border-radius:8px; font-family:inherit; font-weight:700; font-size:.8rem; cursor:pointer; transition:opacity .2s; }
+  .mode-btn:hover { opacity:.85; }
+
+  #progress-bar-wrap { display:none; background:var(--fond2); padding:.6rem 1.5rem; position:sticky; top:65px; z-index:99; }
+  #progress-bar-wrap.active { display:block; }
+  #progress-bar-track { height:6px; background:#ddd8cc; border-radius:3px; overflow:hidden; }
+  #progress-bar-fill { height:100%; background:var(--or); border-radius:3px; transition:width .4s; }
+  #progress-label { font-size:.75rem; color:var(--texte-doux); text-align:right; margin-top:.2rem; }
+
+  .legend { padding:.7rem 1.5rem; display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; background:var(--fond2); border-bottom:1px solid #ddd8cc; font-size:.75rem; }
+  .legend-item { display:flex; align-items:center; gap:.3rem; color:var(--texte-doux); }
+  .legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+  main { padding:1.5rem; max-width:1100px; margin:0 auto; }
+  .section-title { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--vert); margin:1.8rem 0 .8rem; padding-bottom:.4rem; border-bottom:2px solid var(--or-clair); display:flex; align-items:center; gap:.6rem; }
+  .word-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.9rem; }
+
+  .card { background:var(--blanc); border-radius:12px; padding:1rem 1.1rem; box-shadow:var(--ombre); border-left:4px solid var(--vert); cursor:pointer; transition:transform .15s,box-shadow .15s; position:relative; overflow:hidden; }
+  .card:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,0.14); }
+  .card.cat-comprehension { border-left-color:var(--bleu); }
+  .card.cat-grammaire { border-left-color:var(--vert); }
+  .card.cat-vocabulaire { border-left-color:var(--rouge); }
+  .card.cat-conjugaison { border-left-color:var(--violet); }
+  .card.cat-consignes { border-left-color:var(--or); }
+  .card.cat-sentiments { border-left-color:var(--rose); }
+  .card.cat-litterature { border-left-color:var(--teal); }
+  .card.cat-themes { border-left-color:var(--orange); }
+  .card.cat-expressions { border-left-color:#0891b2; }
+
+  .card-top { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; margin-bottom:.45rem; }
+  .fr-word { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--texte); line-height:1.2; }
+  .cat-tag { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:.2rem .5rem; border-radius:99px; white-space:nowrap; flex-shrink:0; }
+  .cat-comprehension .cat-tag { background:#dbeafe; color:var(--bleu); }
+  .cat-grammaire .cat-tag { background:#d1fae5; color:#065f46; }
+  .cat-vocabulaire .cat-tag { background:#fee2e2; color:var(--rouge); }
+  .cat-conjugaison .cat-tag { background:#ede9fe; color:#5b21b6; }
+  .cat-consignes .cat-tag { background:var(--or-clair); color:#92400e; }
+  .cat-sentiments .cat-tag { background:#fce7f3; color:#9d174d; }
+  .cat-litterature .cat-tag { background:#ccfbf1; color:#134e4a; }
+  .cat-themes .cat-tag { background:#ffedd5; color:#9a3412; }
+  .cat-expressions .cat-tag { background:#e0f2fe; color:#075985; }
+
+  .ar-word { font-family:'Amiri',serif; font-size:1.25rem; direction:rtl; text-align:right; color:var(--vert); line-height:1.4; margin-bottom:.3rem; }
+  .card.quiz-mode .ar-word { filter:blur(6px); user-select:none; transition:filter .3s; }
+  .card.quiz-mode.revealed .ar-word { filter:none; }
+
+  .definition { font-size:.8rem; color:var(--texte-doux); font-style:italic; margin-bottom:.35rem; line-height:1.4; }
+  .exemple { font-size:.78rem; color:#7a6a50; background:var(--fond); border-radius:6px; padding:.3rem .55rem; margin-top:.35rem; display:none; line-height:1.5; }
+  .card.expanded .exemple { display:block; }
+  .reveal-hint { font-size:.68rem; color:var(--texte-doux); opacity:.5; text-align:center; margin-top:.35rem; display:none; }
+  .card.quiz-mode .reveal-hint { display:block; }
+
+  #no-results { display:none; text-align:center; padding:3rem 1rem; color:var(--texte-doux); }
+  footer { text-align:center; padding:2rem 1rem; font-size:.75rem; color:var(--texte-doux); opacity:.7; background:var(--fond2); margin-top:3rem; border-top:1px solid #ddd8cc; }
+  @media(max-width:600px) { .word-grid{grid-template-columns:1fr;} .controls{padding:.7rem .8rem;} header{padding:2rem 1rem 1.5rem;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">BAC Sénégal · Série L-AR · Version enrichie v2</div>
+  <h1>Lexique Français–Arabe<br>pour l'épreuve du Baccalauréat</h1>
+  <p class="subtitle">Vocabulaire essentiel · Littérature africaine · Thèmes sociaux · Expressions idiomatiques</p>
+  <div class="header-arabic">المعجم الفرنسي-العربي لامتحان الباكالوريا — النسخة الموسَّعة</div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num" id="total-words">0</span><span class="stat-label">Mots</span></div>
+    <div class="stat"><span class="stat-num">9</span><span class="stat-label">Catégories</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Années</span></div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="search-box"><input type="text" id="search" placeholder="Chercher en français ou arabe..." oninput="applyFilter()"></div>
+  <button class="filter-btn active" onclick="setFilter('all',this)">Tous</button>
+  <button class="filter-btn" onclick="setFilter('consignes',this)">📋 Consignes</button>
+  <button class="filter-btn" onclick="setFilter('vocabulaire',this)">📖 Vocabulaire</button>
+  <button class="filter-btn" onclick="setFilter('litterature',this)">📚 Littérature</button>
+  <button class="filter-btn" onclick="setFilter('themes',this)">🌍 Thèmes</button>
+  <button class="filter-btn" onclick="setFilter('expressions',this)">💬 Expressions</button>
+  <button class="filter-btn" onclick="setFilter('sentiments',this)">💔 Sentiments</button>
+  <button class="filter-btn" onclick="setFilter('grammaire',this)">⚙️ Grammaire</button>
+  <button class="filter-btn" onclick="setFilter('conjugaison',this)">🔄 Conjugaison</button>
+  <button class="filter-btn" onclick="setFilter('comprehension',this)">💡 Compréhension</button>
+  <button class="mode-btn" id="quiz-btn" onclick="toggleQuiz()">🎯 Mode Quiz</button>
+</div>
+
+<div id="progress-bar-wrap">
+  <div id="progress-bar-track"><div id="progress-bar-fill" style="width:0%"></div></div>
+  <div id="progress-label">0 / 0 révélés</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--or)"></div>Consignes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--rouge)"></div>Vocabulaire texte</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Littérature africaine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Thèmes sociaux</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0891b2"></div>Expressions idiom.</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--rose)"></div>Sentiments</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--vert)"></div>Grammaire</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--violet)"></div>Conjugaison</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--bleu)"></div>Compréhension</div>
+</div>
+
+<main id="main-content"></main>
+<div id="no-results">Aucun mot trouvé pour cette recherche.</div>
+
+<footer>
+  Lexique v2 — épreuves officielles Office du Baccalauréat Sénégal · officedubac.sn<br>
+  <strong>Cliquez</strong> sur une carte pour voir l'exemple · <strong>Mode Quiz</strong> : traduction masquée, cliquez pour révéler
+</footer>
+
+<script>
+const WORDS = [
+  // ── CONSIGNES ─────────────────────────────────────────
+  {fr:"Donnez",ar:"أعطِ / قدِّم",def:"Fournir, mentionner une réponse",cat:"consignes",ex:"Donnez le type de ce texte et justifiez-le."},
+  {fr:"Relevez",ar:"استخرج / اذكر",def:"Extraire un ou plusieurs éléments du texte",cat:"consignes",ex:"Relevez deux expressions qui montrent la tristesse de Raabi."},
+  {fr:"Justifiez",ar:"برِّر / علِّل",def:"Expliquer avec des preuves tirées du texte",cat:"consignes",ex:"Justifiez votre réponse à partir d'indices du texte."},
+  {fr:"Expliquez",ar:"اشرح / فسِّر",def:"Donner le sens d'une expression ou d'un mot",cat:"consignes",ex:"Expliquez : « enivrante odeur d'encens »."},
+  {fr:"Précisez",ar:"حدِّد / بيِّن بدقة",def:"Indiquer avec exactitude",cat:"consignes",ex:"Précisez le mode et le temps du verbe conjugué."},
+  {fr:"Montrez",ar:"أظهِر / أثبت",def:"Démontrer en s'appuyant sur le texte",cat:"consignes",ex:"Montrez, à travers un indice, que c'est un père qui écrit."},
+  {fr:"Mettez en relief",ar:"أبرز / قدِّم وأخِّر",def:"Accentuer un groupe de mots (c'est…que/qui)",cat:"consignes",ex:"Mettez en relief le groupe souligné dans la phrase."},
+  {fr:"Proposez",ar:"اقترح",def:"Suggérer une réponse (synonyme, exemple...)",cat:"consignes",ex:"Proposez un synonyme de « mutation »."},
+  {fr:"Faites l'analyse logique",ar:"حلِّل الجمل تركيبياً",def:"Identifier et nommer les propositions de la phrase",cat:"consignes",ex:"Faites l'analyse logique : principale + subordonnée."},
+  {fr:"Transformez",ar:"حوِّل",def:"Changer la forme grammaticale d'une phrase",cat:"consignes",ex:"Transformez cette phrase interrogative en déclarative."},
+  {fr:"Dégagez",ar:"استخلص / استنتج",def:"Extraire une idée principale ou un sens",cat:"consignes",ex:"Dégagez l'idée principale du texte."},
+  {fr:"Reformulez",ar:"أعِد الصياغة",def:"Exprimer autrement, avec ses propres mots",cat:"consignes",ex:"Reformulez cette phrase à la voix passive."},
+  {fr:"Complétez",ar:"أكمل / أتمم",def:"Remplir ce qui manque dans un tableau ou une phrase",cat:"consignes",ex:"Complétez le tableau suivant avec les formes verbales."},
+  {fr:"Relevez et classez",ar:"استخرج وصنِّف",def:"Extraire des éléments puis les organiser",cat:"consignes",ex:"Relevez et classez les propositions de ce texte."},
+  {fr:"Employez dans une phrase",ar:"وظِّف في جملة",def:"Construire une phrase avec le mot trouvé",cat:"consignes",ex:"Employez le synonyme trouvé dans une phrase correcte."},
+  {fr:"Donnez la nature et la fonction",ar:"حدِّد طبيعة الكلمة ووظيفتها",def:"Dire la classe et le rôle grammatical du mot",cat:"consignes",ex:"Donnez la nature et la fonction des mots soulignés."},
+  {fr:"Mettez au temps indiqué",ar:"ضع الفعل في الزمن المطلوب",def:"Conjuguer un verbe à un temps précis",cat:"consignes",ex:"Mettez le verbe aux temps indiqués ci-dessous."},
+  {fr:"Partagez-vous ?",ar:"هل توافق على...؟",def:"Donner son avis personnel en l'argumentant",cat:"consignes",ex:"Partagez-vous le comportement de la mère à l'égard de sa fille ?"},
+
+  // ── VOCABULAIRE DES TEXTES ─────────────────────────────
+  {fr:"assidu",ar:"مواظب / منتظم / دؤوب",def:"Régulier, présent de façon constante",cat:"vocabulaire",ex:"Il est plus assidu que d'habitude à la maison."},
+  {fr:"s'exhaler",ar:"ينبعث / يتصاعد (رائحة)",def:"Se dégager, émaner (en parlant d'une odeur)",cat:"vocabulaire",ex:"Une enivrante odeur d'encens s'exhale de la pièce."},
+  {fr:"enivrante",ar:"مُسكِرة / خلّابة",def:"Qui grise, qui transporte les sens",cat:"vocabulaire",ex:"L'enivrante odeur d'encens envahissait la pièce."},
+  {fr:"l'encens",ar:"البخور",def:"Résine brûlée pour parfumer, utilisée lors des prières",cat:"vocabulaire",ex:"L'odeur d'encens emplit toujours la pièce de prière."},
+  {fr:"aménagée",ar:"مُهيَّأة / مُجهَّزة",def:"Organisée, arrangée pour un usage particulier",cat:"vocabulaire",ex:"La pièce aménagée pour les prières ne contenait que des tapis."},
+  {fr:"la rancœur",ar:"الضغينة / المرارة / الحقد الدفين",def:"Sentiment amer qu'on garde contre quelqu'un",cat:"vocabulaire",ex:"Elle ne pouvait cacher sa rancœur envers son père."},
+  {fr:"réprouver",ar:"يرفض / يُدين / يستنكر",def:"Désapprouver fortement, condamner",cat:"vocabulaire",ex:"Raabi réprouve la feinte et l'hypocrisie."},
+  {fr:"la feinte",ar:"التظاهر / الخداع / التمثيل",def:"Simulation d'un sentiment qu'on n'a pas",cat:"vocabulaire",ex:"Elle réprouve la feinte et l'hypocrisie."},
+  {fr:"ébranler",ar:"يُزعزع / يُزلزل",def:"Faire chanceler moralement, affecter profondément",cat:"vocabulaire",ex:"Elle n'a jamais été ébranlée par les marques de gentillesse."},
+  {fr:"réitérés",ar:"متكررة / مُعادة مراراً",def:"Répétés plusieurs fois, renouvelés",cat:"vocabulaire",ex:"Les appels émouvants et réitérés d'un père aimant."},
+  {fr:"la lucidité",ar:"الوضوح الذهني / الصفاء العقلي",def:"Clarté d'esprit, capacité à voir la réalité",cat:"vocabulaire",ex:"Elle ne pouvait retrouver assez de lucidité pour cacher sa rancœur."},
+  {fr:"la mutation",ar:"التحوُّل / التغيُّر الجذري",def:"Changement profond de nature ou de comportement",cat:"vocabulaire",ex:"Il n'y a point de mutation extérieure sans mutation intérieure."},
+  {fr:"l'accoutrement",ar:"اللباس الغريب / الهيئة الشاذة",def:"Vêtement bizarre ou peu habituel",cat:"vocabulaire",ex:"Ton accoutrement cache-t-il d'autres changements de ta personnalité ?"},
+  {fr:"individualiste",ar:"فردانيّ / أناني",def:"Qui pense d'abord à soi, sans solidarité collective",cat:"vocabulaire",ex:"Tu commences à devenir individualiste comme les Blancs."},
+  {fr:"les coutumes",ar:"العادات والتقاليد",def:"Pratiques héritées d'une société ou d'une famille",cat:"vocabulaire",ex:"Tu dois continuer à respecter nos coutumes."},
+  {fr:"épargner (qqn de qqch)",ar:"يُجنِّب / يُبعد عن",def:"Éviter à quelqu'un quelque chose de pénible",cat:"vocabulaire",ex:"Épargne-nous la honte parmi nos semblables."},
+  {fr:"les semblables",ar:"الأقران / المحيطون",def:"Les autres, les gens de la même communauté",cat:"vocabulaire",ex:"Épargne-nous la honte parmi nos semblables."},
+  {fr:"la tendresse",ar:"الحنان / العطف / اللطف",def:"Sentiment d'affection douce et profonde",cat:"vocabulaire",ex:"La tendresse du père ne trouve aucun écho chez Raabi."},
+  {fr:"se résoudre (à)",ar:"يعزم على / يُقرِّر بعد تردد",def:"Se décider à faire quelque chose après hésitation",cat:"vocabulaire",ex:"Elle n'a pas pu se résoudre à cacher sa rancœur."},
+  {fr:"le champ lexical",ar:"الحقل المعجمي",def:"Ensemble de mots rattachés à un même thème",cat:"vocabulaire",ex:"Relevez un mot du champ lexical de la déception."},
+  {fr:"le synonyme",ar:"المُرادف",def:"Mot ayant un sens proche d'un autre mot",cat:"vocabulaire",ex:"Donnez un synonyme du mot « mutation »."},
+  {fr:"l'antonyme",ar:"المضاد / النقيض",def:"Mot ayant le sens contraire",cat:"vocabulaire",ex:"L'antonyme de « s'enferme » : sort, quitte."},
+  {fr:"le paronyme",ar:"شبيه اللفظ / المتجانس",def:"Mot qui ressemble phonétiquement à un autre mais diffère de sens",cat:"vocabulaire",ex:"Un paronyme de « épousé » : épuisé."},
+  {fr:"le radical",ar:"الجذر / أصل الكلمة",def:"Partie centrale d'un mot, sans préfixe ni suffixe",cat:"vocabulaire",ex:"Le radical de « s'enferme » est : ferm-."},
+  {fr:"le suffixe",ar:"اللاحقة",def:"Élément ajouté après le radical pour former un nouveau mot",cat:"vocabulaire",ex:"Le suffixe de « individualiste » est : -iste."},
+  {fr:"le préfixe",ar:"السابقة",def:"Élément ajouté avant le radical",cat:"vocabulaire",ex:"Le préfixe de « désobéir » est : dé-."},
+  {fr:"la famille de mots",ar:"عائلة الكلمات / الكلمات المشتقة",def:"Ensemble des mots dérivés d'un même radical",cat:"vocabulaire",ex:"Famille de « exhale » : haleine, exhalation, exhalaison."},
+  {fr:"émouvant",ar:"مُؤثِّر / مُحرِّك للمشاعر",def:"Qui touche, qui provoque une émotion forte",cat:"vocabulaire",ex:"Les appels émouvants et réitérés du père."},
+  {fr:"meurtri",ar:"مجروح / متألم / موجوع القلب",def:"Profondément blessé intérieurement",cat:"vocabulaire",ex:"Le cœur meurtri de Raabi ne pouvait pardonner."},
+  {fr:"le devoir",ar:"الواجب / الفريضة",def:"Obligation morale envers quelqu'un",cat:"vocabulaire",ex:"Il est de ton devoir de t'occuper de la famille."},
+
+  // ── LITTÉRATURE AFRICAINE ──────────────────────────────
+  {fr:"l'oralité",ar:"الشفهية / تراث الكلمة الشفهية",def:"Tradition de transmission orale des récits et savoirs",cat:"litterature",ex:"La littérature africaine est profondément marquée par l'oralité."},
+  {fr:"le griot",ar:"الجيلي / المنشد والراوي التقليدي",def:"Dépositaire de la mémoire collective, conteur et musicien",cat:"litterature",ex:"Le griot est le gardien de la mémoire et de l'histoire du peuple."},
+  {fr:"la négritude",ar:"الزنوجة / حركة الهوية الإفريقية",def:"Mouvement littéraire revendiquant la fierté de l'identité africaine (Senghor, Césaire)",cat:"litterature",ex:"Senghor est l'un des fondateurs du mouvement de la négritude."},
+  {fr:"l'engagement littéraire",ar:"الالتزام الأدبي / الأدب الملتزم",def:"Littérature qui prend position contre l'injustice sociale",cat:"litterature",ex:"Sembène Ousmane est un écrivain engagé contre l'oppression."},
+  {fr:"le roman social",ar:"الرواية الاجتماعية",def:"Roman qui décrit et critique la société",cat:"litterature",ex:"« La Grève des Bàttu » est un roman social."},
+  {fr:"le narrateur",ar:"الراوي / السارد",def:"Celui qui raconte l'histoire dans un texte",cat:"litterature",ex:"Le narrateur omniscient connaît les pensées des personnages."},
+  {fr:"omniscient",ar:"عليم بكل شيء / كلي المعرفة",def:"Qui sait tout sur les personnages et les événements",cat:"litterature",ex:"Le narrateur omniscient révèle les pensées intimes des personnages."},
+  {fr:"le personnage principal",ar:"الشخصية الرئيسية / البطل",def:"Celui autour duquel tourne l'histoire",cat:"litterature",ex:"Raabi est le personnage principal de ce passage."},
+  {fr:"la métaphore",ar:"الاستعارة",def:"Comparaison sans « comme » : A est B",cat:"litterature",ex:"« Sa vie est un désert » est une métaphore."},
+  {fr:"la comparaison",ar:"التشبيه",def:"Rapprochement avec « comme », « tel que »...",cat:"litterature",ex:"« Il est courageux comme un lion » est une comparaison."},
+  {fr:"la personnification",ar:"التشخيص / التجسيد",def:"Donner des qualités humaines à une chose ou un animal",cat:"litterature",ex:"« La forêt pleure » est une personnification."},
+  {fr:"l'hyperbole",ar:"المبالغة",def:"Exagération pour renforcer une idée",cat:"litterature",ex:"« Je t'ai dit mille fois » est une hyperbole."},
+  {fr:"l'antithèse",ar:"المقابلة / الطباق",def:"Opposition de deux idées contraires dans la même phrase",cat:"litterature",ex:"« Mutation extérieure / mutation intérieure » est une antithèse."},
+  {fr:"le symbole",ar:"الرمز",def:"Objet ou image qui représente une idée abstraite",cat:"litterature",ex:"Le tapis d'Orient symbolise la dévotion dans ce texte."},
+  {fr:"le thème",ar:"الموضوع / الثيمة",def:"Sujet principal traité dans le texte",cat:"litterature",ex:"Le thème central est le conflit entre tradition et modernité."},
+  {fr:"la tonalité",ar:"النبرة / الأسلوب العاطفي للنص",def:"L'atmosphère émotionnelle d'un texte (triste, ironique, lyrique...)",cat:"litterature",ex:"Ce texte a une tonalité mélancolique et nostalgique."},
+  {fr:"lyrique",ar:"غنائي / عاطفي",def:"Qui exprime des émotions intenses, poétique",cat:"litterature",ex:"Senghor adopte un style lyrique dans ses poèmes."},
+  {fr:"la prose",ar:"النثر",def:"Texte écrit normalement, sans rimes ni vers",cat:"litterature",ex:"Ce roman est écrit en prose, contrairement aux poèmes."},
+  {fr:"le vers",ar:"البيت الشعري / السطر الشعري",def:"Ligne d'un poème avec une certaine musicalité",cat:"litterature",ex:"Le poème de Senghor est composé de vers libres."},
+  {fr:"la dédicace",ar:"الإهداء",def:"Message d'hommage en début d'œuvre",cat:"litterature",ex:"L'auteur a rédigé une dédicace à sa mère en début de roman."},
+
+  // ── THÈMES SOCIAUX ─────────────────────────────────────
+  {fr:"la tradition",ar:"التقليد / الموروث الثقافي",def:"Ensemble des pratiques transmises de génération en génération",cat:"themes",ex:"Le conflit entre tradition et modernité est un thème central."},
+  {fr:"la modernité",ar:"الحداثة",def:"Ce qui est nouveau, actuel, en rupture avec le passé",cat:"themes",ex:"Les jeunes sont attirés par la modernité occidentale."},
+  {fr:"l'immigration",ar:"الهجرة / المهجر",def:"Fait de quitter son pays pour s'installer ailleurs",cat:"themes",ex:"L'immigration en France est au cœur du roman de Fatou Diome."},
+  {fr:"l'exil",ar:"المنفى / الغربة",def:"Situation de celui qui vit loin de sa patrie",cat:"themes",ex:"L'exil provoque un sentiment de déchirement identitaire."},
+  {fr:"la nostalgie",ar:"الحنين إلى الوطن / الشوق",def:"Sentiment de manque envers un passé ou un lieu aimé",cat:"themes",ex:"Le père ressent une profonde nostalgie pour son fils absent."},
+  {fr:"l'identité",ar:"الهوية",def:"Ce qui définit une personne, un groupe ou une culture",cat:"themes",ex:"La question de l'identité africaine est centrale dans ce texte."},
+  {fr:"les valeurs",ar:"القيم",def:"Principes moraux qui guident le comportement",cat:"themes",ex:"Le père veut que son fils garde ses valeurs africaines."},
+  {fr:"la solidarité",ar:"التضامن",def:"Soutien mutuel entre les membres d'une communauté",cat:"themes",ex:"La solidarité familiale est une valeur forte dans la culture sénégalaise."},
+  {fr:"la polygamie",ar:"تعدد الزوجات",def:"Fait d'avoir plusieurs épouses (légalement dans certaines cultures)",cat:"themes",ex:"La polygamie de son père est à l'origine de la révolte de Raabi."},
+  {fr:"la condition de la femme",ar:"وضع المرأة / قضية المرأة",def:"Situation sociale et droits des femmes dans une société",cat:"themes",ex:"La condition de la femme africaine est questionnée dans ces romans."},
+  {fr:"le mariage forcé",ar:"الزواج القسري",def:"Union imposée sans le consentement de la personne",cat:"themes",ex:"Le mariage forcé est une réalité dénoncée dans la littérature africaine."},
+  {fr:"la colonisation",ar:"الاستعمار",def:"Domination politique et culturelle d'un peuple par un autre",cat:"themes",ex:"La colonisation a laissé des traces profondes dans les sociétés africaines."},
+  {fr:"l'émancipation",ar:"التحرر / الانعتاق",def:"Action de se libérer d'une tutelle ou d'une domination",cat:"themes",ex:"L'émancipation de la femme est un thème récurrent dans ces œuvres."},
+  {fr:"la pauvreté",ar:"الفقر",def:"Manque de ressources nécessaires à la vie",cat:"themes",ex:"La pauvreté frappe de nombreuses familles dans « La Grève des Bàttu »."},
+  {fr:"le conflit des générations",ar:"الصراع بين الأجيال",def:"Opposition entre valeurs des parents et des enfants",cat:"themes",ex:"Le conflit des générations est au cœur du texte sur Raabi et son père."},
+  {fr:"l'acculturation",ar:"التثاقف / اكتساب ثقافة أجنبية",def:"Adoption progressive d'une autre culture au détriment de la sienne",cat:"themes",ex:"Le père craint l'acculturation de son fils en France."},
+  {fr:"la diaspora",ar:"الشتات / المغتربون",def:"Population d'une origine vivant hors de son pays d'origine",cat:"themes",ex:"La diaspora africaine est tiraillée entre deux cultures."},
+  {fr:"le déracinement",ar:"الاقتلاع / فقدان الجذور",def:"Fait de perdre ses racines culturelles ou géographiques",cat:"themes",ex:"L'immigration provoque souvent un sentiment de déracinement."},
+  {fr:"la dot",ar:"المهر",def:"Biens offerts par le fiancé à la famille de la mariée",cat:"themes",ex:"Le rituel de la dot est encore pratiqué dans de nombreuses familles."},
+  {fr:"l'urbanisation",ar:"التحضر / النمو العمراني",def:"Développement des villes et exode rural",cat:"themes",ex:"L'urbanisation rapide crée des inégalités sociales flagrantes."},
+
+  // ── EXPRESSIONS IDIOMATIQUES ───────────────────────────
+  {fr:"entendre raison",ar:"يقتنع / يرضخ للمنطق",def:"Accepter les arguments raisonnables de quelqu'un",cat:"expressions",ex:"La mère a tenté de lui faire entendre raison sans succès."},
+  {fr:"ne pas perdre de vue",ar:"لا يُغفل عن / لا ينسى",def:"Ne pas oublier quelque chose d'important",cat:"expressions",ex:"Ne perds pas de vue que ton père reste ton père."},
+  {fr:"porter bonheur",ar:"يجلب الحظ / يُسعد",def:"Apporter de la chance, être favorable",cat:"expressions",ex:"Juger son père peut ne pas te porter bonheur."},
+  {fr:"tout passe",ar:"كل شيء يمر / لا شيء يبقى",def:"Expression de résignation : les mauvais moments finissent",cat:"expressions",ex:"« Raabi, tout passe... Il faut savoir oublier. »"},
+  {fr:"se faire vieux",ar:"يتقدم في العمر / يشيخ",def:"Vieillir, avancer en âge",cat:"expressions",ex:"Je me fais vieux et tu es mon seul fils."},
+  {fr:"être de son devoir",ar:"يكون من واجبه",def:"Avoir l'obligation morale de faire quelque chose",cat:"expressions",ex:"Il est de ton devoir de t'occuper de ta famille."},
+  {fr:"ne pas attacher d'importance",ar:"لا يُعير اهتماماً / لا يكترث",def:"Faire semblant que quelque chose ne compte pas",cat:"expressions",ex:"Elle souriait pour donner l'impression de n'attacher aucune importance."},
+  {fr:"avoir le cœur lourd",ar:"يحمل هماً / يشعر بثقل القلب",def:"Éprouver une grande tristesse",cat:"expressions",ex:"Elle avait le cœur lourd en regardant son père prier."},
+  {fr:"prendre la parole",ar:"يأخذ الكلمة / يتكلم",def:"Commencer à parler, s'exprimer",cat:"expressions",ex:"La mère a pris la parole pour calmer les tensions."},
+  {fr:"tenir tête (à)",ar:"يتحدى / يقاوم / لا يستسلم",def:"Résister, s'opposer fermement",cat:"expressions",ex:"Raabi tient tête à son père malgré les pressions."},
+  {fr:"faire fi de",ar:"يتجاهل / لا يأبه بـ",def:"Ignorer, ne pas tenir compte de",cat:"expressions",ex:"Elle fait fi des conseils de sa mère."},
+  {fr:"avoir beau (faire)",ar:"بالرغم من / مهما فعل",def:"Faire quelque chose en vain, sans résultat",cat:"expressions",ex:"Il avait beau insister, elle ne répondait pas."},
+  {fr:"en dépit de",ar:"بالرغم من / على الرغم من",def:"Malgré, nonobstant",cat:"expressions",ex:"En dépit de ses efforts, le père ne retrouvait pas l'amour de sa fille."},
+  {fr:"à l'endroit de",ar:"تجاه / إزاء / في حق",def:"Envers, vis-à-vis de quelqu'un",cat:"expressions",ex:"Quel est le comportement de la mère à l'endroit de sa fille ?"},
+  {fr:"au fur et à mesure",ar:"تدريجياً / شيئاً فشيئاً",def:"Progressivement, en même temps que quelque chose évolue",cat:"expressions",ex:"Au fur et à mesure du temps, Raabi se ferme davantage."},
+  {fr:"quoi qu'il en soit",ar:"مهما يكن / على أي حال",def:"En tout cas, peu importe ce qui se passe",cat:"expressions",ex:"Quoi qu'il en soit, elle refusait de pardonner."},
+  {fr:"à ce jour",ar:"حتى اليوم / إلى الآن",def:"Jusqu'à maintenant, encore aujourd'hui",cat:"expressions",ex:"À ce jour, aucun des projets n'est réalisé."},
+  {fr:"malgré tout",ar:"رغم كل شيء",def:"En dépit de tout, quand même",cat:"expressions",ex:"Malgré tout, ne perds pas de vue que ton père est ton père."},
+  {fr:"cacher son jeu",ar:"يُخفي أوراقه / يُداري نيته",def:"Dissimuler ses vraies intentions",cat:"expressions",ex:"Raabi ne cherchait pas à cacher son jeu avec son père."},
+  {fr:"rompre le silence",ar:"يكسر الصمت",def:"Commencer à parler après une période de silence",cat:"expressions",ex:"Elle a finalement rompu le silence pour expliquer sa rancœur."},
+
+  // ── SENTIMENTS ET ÉMOTIONS ─────────────────────────────
+  {fr:"la révolte",ar:"التمرد / العصيان",def:"Refus, rébellion contre une situation jugée injuste",cat:"sentiments",ex:"Raabi est une fille révoltée par la décision de son père."},
+  {fr:"la déception",ar:"خيبة الأمل",def:"Sentiment né d'un espoir non réalisé",cat:"sentiments",ex:"La rancœur appartient au champ lexical de la déception."},
+  {fr:"l'hypocrisie",ar:"النفاق / الرياء",def:"Comportement qui dissimule ses vrais sentiments",cat:"sentiments",ex:"Elle réprouve la feinte et l'hypocrisie."},
+  {fr:"la honte",ar:"العار / الخجل",def:"Sentiment d'humiliation ou de déshonneur",cat:"sentiments",ex:"Épargne-nous la honte parmi nos semblables."},
+  {fr:"l'inquiétude",ar:"القلق / الهمّ",def:"Préoccupation, anxiété face à l'incertitude",cat:"sentiments",ex:"L'accoutrement de son fils l'inquiète beaucoup."},
+  {fr:"la nostalgie",ar:"الحنين / الشوق",def:"Manque mélancolique d'un passé ou d'un lieu aimé",cat:"sentiments",ex:"Le père ressent une profonde nostalgie de son fils absent."},
+  {fr:"la rancune",ar:"الحقد / الضغينة",def:"Ressentiment qu'on garde longtemps envers quelqu'un",cat:"sentiments",ex:"Raabi garde une rancune tenace envers son père."},
+  {fr:"l'amertume",ar:"المرارة / الألم الداخلي",def:"Sentiment pénible mêlé de tristesse et de déception",cat:"sentiments",ex:"Son sourire cachait une profonde amertume."},
+  {fr:"la fierté",ar:"الكبرياء / الفخر",def:"Sentiment de sa propre valeur, d'un honneur à préserver",cat:"sentiments",ex:"Le père tire fierté de ses coutumes et traditions."},
+  {fr:"l'indifférence",ar:"اللامبالاة / البرود",def:"Absence d'intérêt ou d'émotion face à quelque chose",cat:"sentiments",ex:"Raabi affiche une indifférence calculée envers son père."},
+  {fr:"le remords",ar:"الندم / تأنيب الضمير",def:"Sentiment de culpabilité après une mauvaise action",cat:"sentiments",ex:"Le père n'exprime pas de remords pour son second mariage."},
+  {fr:"la compassion",ar:"الشفقة / الرحمة",def:"Sentiment de pitié et de compréhension envers la souffrance d'autrui",cat:"sentiments",ex:"La mère montre de la compassion envers sa fille."},
+  {fr:"le désarroi",ar:"الارتباك / الحيرة الداخلية",def:"Grande confusion, trouble intérieur",cat:"sentiments",ex:"Le père est dans un profond désarroi face au silence de son fils."},
+  {fr:"la méfiance",ar:"الريبة / عدم الثقة",def:"Manque de confiance, attitude prudente et suspicieuse",cat:"sentiments",ex:"Raabi garde une méfiance permanente envers son père."},
+
+  // ── GRAMMAIRE AVANCÉE ──────────────────────────────────
+  {fr:"la nature d'un mot",ar:"طبيعة / نوع الكلمة",def:"Sa classe grammaticale (nom, verbe, adjectif...)",cat:"grammaire",ex:"Donnez la nature et la fonction des mots soulignés."},
+  {fr:"la fonction d'un mot",ar:"وظيفة الكلمة / دورها النحوي",def:"Son rôle dans la phrase (sujet, COD, épithète...)",cat:"grammaire",ex:"« Meublée » est participe passé, apposé à « pièce »."},
+  {fr:"le sujet",ar:"الفاعل / المبتدأ",def:"Celui qui fait ou subit l'action",cat:"grammaire",ex:"« Raabi » est le sujet du verbe « réprouve »."},
+  {fr:"le COD",ar:"المفعول به المباشر",def:"Complément sans préposition qui répond à « quoi ? »",cat:"grammaire",ex:"« une explication » est COD de « fourni »."},
+  {fr:"le COI",ar:"المفعول به غير المباشر",def:"Complément introduit par à, de, pour...",cat:"grammaire",ex:"« à sa mère » est COI de « fourni »."},
+  {fr:"le CCL (lieu)",ar:"ظرف المكان",def:"Indique où se passe l'action",cat:"grammaire",ex:"« au pays » est CCL de « revenir »."},
+  {fr:"le CCT (temps)",ar:"ظرف الزمان",def:"Indique quand se passe l'action",cat:"grammaire",ex:"« depuis quelques temps » est CCT."},
+  {fr:"l'épithète",ar:"النعت / الصفة المرتبطة بالاسم",def:"Adjectif directement lié au nom sans verbe",cat:"grammaire",ex:"« intérieure » est épithète de « mutation »."},
+  {fr:"l'attribut du sujet",ar:"خبر المبتدأ",def:"Qualité attribuée au sujet via être, devenir, sembler...",cat:"grammaire",ex:"« Fils » est attribut du sujet « tu »."},
+  {fr:"apposé(e)",ar:"نعت تفسيري / مُقحَم",def:"Séparé du nom par une virgule, le qualifie",cat:"grammaire",ex:"« Meublée » est apposé à « pièce »."},
+  {fr:"la proposition principale",ar:"الجملة الرئيسية",def:"Proposition indépendante qui gouverne les autres",cat:"grammaire",ex:"« Elle a remarqué » est la proposition principale."},
+  {fr:"la proposition subordonnée",ar:"الجملة الفرعية / التابعة",def:"Proposition qui dépend d'une autre",cat:"grammaire",ex:"« que celui-ci est plus assidu » est subordonnée."},
+  {fr:"la complétive",ar:"الجملة التتميمية / المفعولية",def:"Subordonnée COD introduite par « que »",cat:"grammaire",ex:"C'est une proposition complétive, COD de « a remarqué »."},
+  {fr:"la relative",ar:"الجملة الصفية / النعتية",def:"Subordonnée introduite par qui, que, dont, où...",cat:"grammaire",ex:"« qui est dans la pièce » est une proposition relative."},
+  {fr:"la circonstancielle",ar:"الجملة الظرفية",def:"Subordonnée de temps, cause, but, condition...",cat:"grammaire",ex:"« parce qu'il est fatigué » est une circonstancielle de cause."},
+  {fr:"juxtaposées",ar:"جملتان متجاورتان (بلا رابط)",def:"Propositions liées par la ponctuation (: ; ,)",cat:"grammaire",ex:"Les deux propositions sont juxtaposées : liées par ':'."},
+  {fr:"coordonnées",ar:"جملتان متنسِّقتان (برابط)",def:"Liées par mais, ou, et, donc, or, ni, car",cat:"grammaire",ex:"Propositions coordonnées par « mais »."},
+  {fr:"la voix active",ar:"صيغة المبني للمعلوم",def:"Le sujet fait l'action",cat:"grammaire",ex:"« J'ai vu ta photo » → voix active."},
+  {fr:"la voix passive",ar:"صيغة المبني للمجهول",def:"Le sujet subit l'action",cat:"grammaire",ex:"« Ta photo a été vue par moi » → voix passive."},
+  {fr:"la mise en relief",ar:"أسلوب التقديم والتأخير",def:"Accentuation via « c'est…que » ou « c'est…qui »",cat:"grammaire",ex:"C'est à sa mère que Raabi n'a jamais fourni d'explication."},
+  {fr:"la conjonction de subordination",ar:"حرف الربط التابع",def:"Mot qui introduit une subordonnée (que, si, parce que...)",cat:"grammaire",ex:"La conjonction de subordination « que » introduit la complétive."},
+  {fr:"la conjonction de coordination",ar:"حرف العطف / حرف الربط المنسِّق",def:"Mais, ou, et, donc, or, ni, car",cat:"grammaire",ex:"Reliez par une conjonction de coordination : « mais »."},
+  {fr:"le pronom relatif",ar:"الضمير الموصول",def:"qui, que, dont, où — introduit une subordonnée relative",cat:"grammaire",ex:"« qui » est un pronom relatif sujet."},
+  {fr:"le participe passé",ar:"اسم المفعول / الصيغة الماضية التشاركية",def:"Forme verbale (chanté, fini, fait, meublé...)",cat:"grammaire",ex:"Le participe passé de « falloir » est « fallu »."},
+  {fr:"le participe présent",ar:"اسم الفاعل / الصفة الفعلية",def:"Forme en -ant (parlant, voulant...)",cat:"grammaire",ex:"Le participe présent de « vouloir » est « voulant »."},
+  {fr:"l'adjectif qualificatif",ar:"الصفة / النعت",def:"Mot qui qualifie un nom",cat:"grammaire",ex:"« enivrante » est adjectif qualificatif épithète."},
+
+  // ── CONJUGAISON ────────────────────────────────────────
+  {fr:"l'indicatif présent",ar:"المضارع المعلوم",def:"Action qui se passe maintenant ou habituellement",cat:"conjugaison",ex:"Il est assidu à la maison."},
+  {fr:"l'indicatif imparfait",ar:"الماضي الاستمراري / ماضي السرد",def:"Action passée répétée ou en cours d'accomplissement",cat:"conjugaison",ex:"Il fallait savoir oublier."},
+  {fr:"le passé composé",ar:"الماضي المركب",def:"Action passée achevée, résultat dans le présent",cat:"conjugaison",ex:"Elle a remarqué les réactions de son père."},
+  {fr:"le passé simple",ar:"الماضي البسيط / ماضي الرواية",def:"Action passée achevée dans les récits littéraires",cat:"conjugaison",ex:"Il entra dans la pièce et ferma la porte."},
+  {fr:"le futur simple",ar:"المستقبل البسيط",def:"Action qui se produira dans l'avenir",cat:"conjugaison",ex:"Il faudra savoir oublier un jour."},
+  {fr:"le passé antérieur",ar:"الماضي السابق",def:"Action passée immédiatement avant une autre au passé simple",cat:"conjugaison",ex:"Il eut fallu savoir oublier."},
+  {fr:"le conditionnel présent",ar:"الشرطي الحاضر / صيغة التمني",def:"Action hypothétique ou souhaitée dans le présent",cat:"conjugaison",ex:"Il faudrait savoir oublier pour aller de l'avant."},
+  {fr:"le conditionnel passé",ar:"الشرطي الماضي",def:"Action hypothétique qui ne s'est pas réalisée dans le passé",cat:"conjugaison",ex:"Il aurait fallu lui parler plus tôt."},
+  {fr:"le subjonctif présent",ar:"المضارع المنصوب / المجزوم",def:"Mode du doute, de la volonté, du souhait",cat:"conjugaison",ex:"Pour que ton âme soit pure."},
+  {fr:"le subjonctif passé",ar:"الماضي الشرطي التابع",def:"Action antérieure dans une subordonnée au subjonctif",cat:"conjugaison",ex:"Pour que ton âme soit restée pure à ton départ."},
+  {fr:"l'infinitif présent",ar:"المصدر / الفعل المجرد",def:"Forme de base du verbe, non conjugué",cat:"conjugaison",ex:"« Oublier » est à l'infinitif présent, COD de « savoir »."},
+  {fr:"le gérondif présent",ar:"الفعل الحالي (en + مصدر الاشتقاق)",def:"« en + participe présent » : simultanéité",cat:"conjugaison",ex:"En oubliant, on avance dans la vie."},
+  {fr:"le gérondif passé",ar:"الفعل الحالي الماضي",def:"« en ayant + participe passé »",cat:"conjugaison",ex:"En ayant fallu — c'est le gérondif passé de « falloir »."},
+  {fr:"l'impératif présent",ar:"فعل الأمر",def:"Mode de l'ordre ou du conseil",cat:"conjugaison",ex:"« Épargne-nous la honte » est à l'impératif présent."},
+  {fr:"le mode",ar:"الصيغة النحوية / الأسلوب الفعلي",def:"Indicatif, subjonctif, conditionnel, impératif, infinitif...",cat:"conjugaison",ex:"Précisez le mode et le temps du verbe conjugué."},
+
+  // ── COMPRÉHENSION DU TEXTE ─────────────────────────────
+  {fr:"le type de texte",ar:"نوع النص",def:"Narratif, descriptif, argumentatif, explicatif...",cat:"comprehension",ex:"Donnez le type de ce texte et justifiez."},
+  {fr:"narratif",ar:"سردي / حكائي",def:"Qui raconte une histoire avec des personnages et des événements",cat:"comprehension",ex:"Ce texte est de type narratif."},
+  {fr:"descriptif",ar:"وصفي",def:"Qui décrit des lieux, des personnes ou des objets",cat:"comprehension",ex:"Ce passage est à dominante descriptive."},
+  {fr:"argumentatif",ar:"حجاجي / إقناعي",def:"Qui cherche à convaincre le lecteur",cat:"comprehension",ex:"La lettre du père a une forte dimension argumentative."},
+  {fr:"explicatif",ar:"إيضاحي / توضيحي",def:"Qui explique, informe de manière objective",cat:"comprehension",ex:"Ce passage est explicatif : il décrit une situation."},
+  {fr:"l'indice",ar:"الدليل / المؤشر / القرينة",def:"Élément du texte qui prouve une affirmation",cat:"comprehension",ex:"Montrez à travers un indice que c'est un père qui écrit."},
+  {fr:"la dominante",ar:"الطابع الغالب / السائد",def:"Caractéristique principale du texte",cat:"comprehension",ex:"Ce texte a une dominante narrative à valeur argumentative."},
+  {fr:"l'idée principale",ar:"الفكرة الرئيسية",def:"Le thème central que l'auteur veut développer",cat:"comprehension",ex:"Dégagez l'idée principale du texte."},
+  {fr:"le contexte",ar:"السياق / الظرف المحيط",def:"L'environnement dans lequel se passe l'histoire",cat:"comprehension",ex:"Le contexte de ce roman est le Sénégal post-colonial."},
+  {fr:"l'implicite",ar:"الضمني / المُضمَر",def:"Ce qui est suggéré sans être dit directement",cat:"comprehension",ex:"« tes sœurs sont toujours à la maison » est implicite."},
+  {fr:"l'explicite",ar:"الصريح / الواضح",def:"Ce qui est dit clairement dans le texte",cat:"comprehension",ex:"L'inquiétude du père est explicite dans ce passage."},
+  {fr:"partager un point de vue",ar:"يتقاسم / يوافق على",def:"Être d'accord avec une position, la soutenir",cat:"comprehension",ex:"Partagez-vous le comportement de la mère à l'endroit de sa fille ?"},
+  {fr:"l'énonciateur",ar:"المتكلم / صاحب الخطاب",def:"Celui qui parle ou écrit dans le texte",cat:"comprehension",ex:"L'énonciateur de la lettre est le père de Salie."},
+  {fr:"le registre de langue",ar:"مستوى اللغة / السجل اللغوي",def:"Soutenu, courant, familier — selon le contexte",cat:"comprehension",ex:"Ce texte est rédigé dans un registre soutenu."},
+];
+
+let currentFilter='all', quizMode=false;
+document.getElementById('total-words').textContent=WORDS.length;
+
+const LABELS={consignes:"Consignes",vocabulaire:"Vocabulaire",litterature:"Littérature",themes:"Thèmes sociaux",expressions:"Expressions",sentiments:"Sentiments",grammaire:"Grammaire",conjugaison:"Conjugaison",comprehension:"Compréhension"};
+const ICONS={consignes:"📋",vocabulaire:"📖",litterature:"📚",themes:"🌍",expressions:"💬",sentiments:"💔",grammaire:"⚙️",conjugaison:"🔄",comprehension:"💡"};
+const ORDER=['consignes','vocabulaire','litterature','themes','expressions','sentiments','grammaire','conjugaison','comprehension'];
+
+function renderAll(filtered){
+  const main=document.getElementById('main-content');
+  main.innerHTML='';
+  if(!filtered.length){document.getElementById('no-results').style.display='block';return;}
+  document.getElementById('no-results').style.display='none';
+  const groups={};
+  filtered.forEach(w=>{if(!groups[w.cat])groups[w.cat]=[];groups[w.cat].push(w);});
+  ORDER.forEach(cat=>{
+    if(!groups[cat])return;
+    const sec=document.createElement('div');
+    sec.innerHTML=`<div class="section-title">${ICONS[cat]} ${LABELS[cat]} <small style="font-size:.8rem;color:var(--texte-doux);font-weight:400">(${groups[cat].length} mots)</small></div>`;
+    const grid=document.createElement('div');
+    grid.className='word-grid';
+    groups[cat].forEach((w,i)=>{
+      const card=document.createElement('div');
+      card.className=`card cat-${w.cat}${quizMode?' quiz-mode':''}`;
+      card.dataset.id=cat+'-'+i;
+      card.innerHTML=`
+        <div class="card-top"><div class="fr-word">${w.fr}</div><div class="cat-tag">${LABELS[w.cat]}</div></div>
+        <div class="ar-word">${w.ar}</div>
+        <div class="definition">${w.def}</div>
+        <div class="exemple">💬 <em>${w.ex}</em></div>
+        <div class="reveal-hint">Cliquez pour révéler la traduction arabe</div>
+      `;
+      card.addEventListener('click',()=>{
+        if(quizMode){
+          if(!card.classList.contains('revealed')){card.classList.add('revealed');updateProgress();}
+          else card.classList.toggle('expanded');
+        } else card.classList.toggle('expanded');
+      });
+      grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+    main.appendChild(sec);
+  });
+  updateProgress();
+}
+
+function setFilter(cat,btn){
+  currentFilter=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter();
+}
+
+function applyFilter(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const filtered=WORDS.filter(w=>{
+    const mc=currentFilter==='all'||w.cat===currentFilter;
+    const mq=!q||w.fr.toLowerCase().includes(q)||w.ar.includes(q)||w.def.toLowerCase().includes(q)||(w.ex&&w.ex.toLowerCase().includes(q));
+    return mc&&mq;
+  });
+  renderAll(filtered);
+}
+
+function toggleQuiz(){
+  quizMode=!quizMode;
+  const btn=document.getElementById('quiz-btn');
+  const pb=document.getElementById('progress-bar-wrap');
+  if(quizMode){btn.textContent='📖 Mode Normal';btn.style.background='#be185d';btn.style.color='#fff';pb.classList.add('active');}
+  else{btn.textContent='🎯 Mode Quiz';btn.style.background='var(--or)';btn.style.color='var(--texte)';pb.classList.remove('active');}
+  applyFilter();
+}
+
+function updateProgress(){
+  if(!quizMode)return;
+  const all=document.querySelectorAll('.card.quiz-mode').length;
+  const rev=document.querySelectorAll('.card.quiz-mode.revealed').length;
+  const pct=all?Math.round(rev/all*100):0;
+  document.getElementById('progress-bar-fill').style.width=pct+'%';
+  document.getElementById('progress-label').textContent=`${rev} / ${all} révélés (${pct}%)`;
+}
+
+applyFilter();
+</script>
+</body>
+</html>
