@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse Grammaticale & Logique — BAC L-AR Sénégal</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --vert:#1a6b3a; --or:#c8962a; --or-clair:#f5e4b8;
+  --fond:#faf8f3; --fond2:#f0ece0; --texte:#1c1a14; --texte-doux:#5a5040;
+  --blanc:#ffffff; --rouge:#b03020; --bleu:#1a3a6b;
+  --violet:#6d28d9; --rose:#be185d; --teal:#0f766e;
+  --ombre:0 2px 16px rgba(0,0,0,0.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fond);color:var(--texte);min-height:100vh;}
+
+/* NAV — scroll horizontal sur mobile */
+nav{
+  background:var(--vert);padding:.5rem .8rem;
+  display:flex;gap:.4rem;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+nav::-webkit-scrollbar{display:none;}
+.nav-btn{
+  color:rgba(255,255,255,.8);text-decoration:none;font-size:.78rem;font-weight:600;
+  padding:.4rem .85rem;border-radius:8px;transition:all .2s;white-space:nowrap;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.18);color:#fff;}
+.nav-btn.active{background:var(--or);color:var(--texte);}
+
+/* HEADER */
+header{background:linear-gradient(135deg,#1a3a6b 0%,#0d2347 100%);color:#fff;padding:2rem 1.2rem 1.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.header-badge{display:inline-block;background:var(--or);color:var(--texte);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .8rem;border-radius:99px;margin-bottom:.8rem;}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.35rem,5vw,2.1rem);font-weight:700;line-height:1.25;margin-bottom:.4rem;}
+header .subtitle{font-size:.85rem;opacity:.8;line-height:1.5;}
+.header-arabic{font-family:'Amiri',serif;font-size:1.25rem;direction:rtl;opacity:.8;margin-top:.8rem;}
+
+/* TABS — scroll horizontal, top calculé en JS */
+.tabs-wrap{
+  background:var(--blanc);border-bottom:2px solid var(--fond2);padding:.55rem .8rem;
+  display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  position:sticky;top:var(--nav-h,38px);z-index:100;box-shadow:var(--ombre);
+}
+.tabs-wrap::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.48rem .9rem;border:2px solid transparent;border-radius:8px;
+  font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;
+  background:var(--fond2);color:var(--texte-doux);transition:all .18s;
+  -webkit-tap-highlight-color:transparent;
+}
+.tab-btn.active{background:var(--bleu);color:#fff;border-color:var(--bleu);}
+.tab-btn:active{opacity:.75;}
+
+/* CONTENU */
+main{max-width:860px;margin:0 auto;padding:1.2rem 1rem 3rem;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* SECTION */
+.section-card{background:var(--blanc);border-radius:14px;box-shadow:var(--ombre);margin-bottom:1.2rem;overflow:hidden;}
+.section-header{background:var(--bleu);color:#fff;padding:.85rem 1.2rem;display:flex;align-items:center;gap:.6rem;}
+.section-header.green{background:var(--vert);}
+.section-header.gold{background:var(--or);color:var(--texte);}
+.section-header.red{background:var(--rouge);}
+.section-header.violet{background:var(--violet);}
+.section-header.teal{background:var(--teal);}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
+.section-header .badge{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:rgba(255,255,255,.2);padding:.2rem .55rem;border-radius:99px;margin-left:auto;white-space:nowrap;}
+.section-body{padding:1.1rem 1.2rem;}
+
+/* PROSE */
+p{font-size:.9rem;line-height:1.7;color:var(--texte-doux);margin-bottom:.8rem;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--texte);font-weight:600;}
+
+/* RÈGLE ENCADRÉE */
+.rule-box{background:var(--fond2);border-left:4px solid var(--bleu);border-radius:0 10px 10px 0;padding:.8rem 1rem;margin:.8rem 0;font-size:.88rem;line-height:1.6;}
+.rule-box.green{border-left-color:var(--vert);}
+.rule-box.gold{border-left-color:var(--or);}
+.rule-box.red{border-left-color:var(--rouge);}
+.rule-box .ar{font-family:'Amiri',serif;font-size:1.1rem;direction:rtl;color:var(--vert);display:block;text-align:right;margin-top:.3rem;}
+
+/* TABLEAU — scroll horizontal + min-width pour lisibilité */
+.table-wrap{overflow-x:auto;margin:.8rem 0;border-radius:10px;box-shadow:var(--ombre);-webkit-overflow-scrolling:touch;}
+table{width:100%;min-width:420px;border-collapse:collapse;font-size:.8rem;}
+thead tr{background:var(--bleu);color:#fff;}
+thead.green tr{background:var(--vert);}
+thead.gold tr{background:var(--or);color:var(--texte);}
+thead.violet tr{background:var(--violet);}
+thead.teal tr{background:var(--teal);}
+th,td{padding:.55rem .75rem;text-align:left;border-bottom:1px solid var(--fond2);vertical-align:top;}
+th{font-weight:700;font-size:.74rem;letter-spacing:.04em;white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#f7f4ee;}
+.ar-cell{font-family:'Amiri',serif;font-size:1rem;direction:rtl;text-align:right;color:var(--vert);white-space:nowrap;}
+.tag{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;padding:.12rem .4rem;border-radius:4px;margin-left:.3rem;}
+.tag-nat{background:#dbeafe;color:var(--bleu);}
+.tag-fn{background:#d1fae5;color:#065f46;}
+
+/* SCHÉMA PROPOSITION — colonne sur mobile, ligne sur desktop */
+.schema{
+  display:flex;flex-direction:column;
+  gap:.5rem;align-items:center;justify-content:center;
+  padding:.9rem;background:var(--fond);border-radius:10px;margin:.8rem 0;
+}
+.schema-box{
+  padding:.5rem 1rem;border-radius:8px;font-size:.78rem;font-weight:700;
+  text-align:center;width:100%;max-width:220px;
+}
+.schema-arrow{font-size:1.1rem;color:var(--texte-doux);transform:rotate(90deg);}
+.schema-box.pp{background:var(--bleu);color:#fff;}
+.schema-box.ps{background:var(--vert);color:#fff;}
+.schema-box.conj{background:var(--or);color:var(--texte);}
+.schema-box.ponct{background:#e5e7eb;color:#374151;}
+
+@media(min-width:520px){
+  .schema{flex-direction:row;flex-wrap:wrap;}
+  .schema-box{width:auto;}
+  .schema-arrow{transform:none;}
+  main{padding:1.5rem 1.5rem 3rem;}
+  .section-body{padding:1.3rem 1.5rem;}
+  table{font-size:.82rem;}
+  th{font-size:.78rem;}
+}
+
+/* PHRASE EXEMPLE */
+.phrase-box{background:#fff;border:2px solid var(--or-clair);border-radius:12px;padding:1rem 1.1rem;margin:.8rem 0;}
+.phrase-box .titre{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--or);margin-bottom:.5rem;}
+.phrase-box .phrase{font-family:'Playfair Display',serif;font-size:1rem;color:var(--texte);line-height:1.5;margin-bottom:.7rem;}
+.phrase-box .phrase u{text-decoration:underline;text-decoration-color:var(--rouge);text-underline-offset:3px;}
+.phrase-box .phrase em{font-style:normal;background:var(--or-clair);border-radius:3px;padding:0 .2rem;}
+
+/* ANALYSE DÉCOMPOSÉE */
+.decomp{display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem;}
+.decomp-row{display:flex;gap:.6rem;align-items:flex-start;font-size:.82rem;padding:.45rem .7rem;border-radius:8px;background:var(--fond);}
+.decomp-row .num{background:var(--bleu);color:#fff;font-weight:700;font-size:.7rem;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.decomp-row .num.green{background:var(--vert);}
+.decomp-row .num.gold{background:var(--or);color:var(--texte);}
+.decomp-row .content{flex:1;line-height:1.5;}
+.decomp-row .content .prop{font-family:'Playfair Display',serif;font-style:italic;color:var(--bleu);}
+.decomp-row .content .prop.green{color:var(--vert);}
+.decomp-row .content .label{font-weight:700;color:var(--texte);}
+
+/* EXERCICES */
+.exo-card{background:var(--blanc);border-radius:14px;box-shadow:var(--ombre);margin-bottom:1rem;overflow:hidden;border:2px solid var(--fond2);}
+.exo-header{padding:.75rem 1.1rem;background:var(--fond2);display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.exo-header h3{font-size:.9rem;font-weight:700;color:var(--texte);}
+.exo-header .toggle{font-size:.85rem;color:var(--texte-doux);transition:transform .25s;}
+.exo-header.open .toggle{transform:rotate(180deg);}
+.exo-body{display:none;padding:1rem 1.1rem;}
+.exo-body.open{display:block;}
+.exo-phrase{font-family:'Playfair Display',serif;font-size:.95rem;line-height:1.6;color:var(--texte);margin-bottom:.8rem;padding:.6rem .9rem;background:var(--fond);border-radius:8px;border-left:3px solid var(--or);}
+.exo-phrase u{text-decoration:underline;text-decoration-color:var(--rouge);text-underline-offset:3px;}
+.show-btn{padding:.45rem 1rem;background:var(--vert);color:#fff;border:none;border-radius:8px;font-family:inherit;font-weight:600;font-size:.82rem;cursor:pointer;margin-bottom:.7rem;-webkit-tap-highlight-color:transparent;}
+.show-btn:active{opacity:.8;}
+.correction{display:none;animation:fadeIn .3s ease;}
+.correction.visible{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ASTUCE */
+.tip{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid var(--or);border-radius:12px;padding:.85rem 1rem;margin:.8rem 0;font-size:.84rem;line-height:1.6;}
+.tip::before{content:'💡 ';font-size:1rem;}
+.tip strong{color:var(--or);}
+
+/* PIÈGE */
+.piege{background:#fff5f5;border:1.5px solid #fca5a5;border-radius:12px;padding:.85rem 1rem;margin:.8rem 0;font-size:.84rem;line-height:1.6;}
+.piege::before{content:'⚠️ ';font-size:1rem;}
+
+/* SCHÉMA PROPOSITION */
+.schema{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;padding:1rem;background:var(--fond);border-radius:10px;margin:.8rem 0;}
+.schema-box{padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:700;text-align:center;min-width:90px;}
+.schema-box.pp{background:var(--bleu);color:#fff;}
+.schema-box.ps{background:var(--vert);color:#fff;}
+.schema-box.conj{background:var(--or);color:var(--texte);}
+.schema-box.ponct{background:#e5e7eb;color:#374151;}
+.schema-arrow{font-size:1.2rem;color:var(--texte-doux);}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.72rem;color:var(--texte-doux);opacity:.7;background:var(--fond2);border-top:1px solid #ddd8cc;}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION INTER-PAGES -->
+<nav>
+  <a href="index.html" class="nav-btn">🏠 Accueil</a>
+  <a href="lexique-bac-francais-L-AR.html" class="nav-btn">📖 Lexique</a>
+  <a href="analyse-grammaticale-logique.html" class="nav-btn active">⚙️ Analyse gramm. & logique</a>
+</nav>
+
+<header>
+  <div class="header-badge">BAC Sénégal · Série L-AR</div>
+  <h1>Analyse Grammaticale<br>& Analyse Logique</h1>
+  <p class="subtitle">Cours complet · Méthode · Exemples tirés des épreuves · Exercices corrigés</p>
+  <div class="header-arabic">التحليل النحوي والتحليل المنطقي — دروس وتمارين</div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <button class="tab-btn active" onclick="showTab('gram',this)">⚙️ Analyse grammaticale</button>
+  <button class="tab-btn" onclick="showTab('logique',this)">🔗 Analyse logique</button>
+  <button class="tab-btn" onclick="showTab('methode',this)">📐 Méthode pas à pas</button>
+  <button class="tab-btn" onclick="showTab('exercices',this)">✏️ Exercices corrigés</button>
+</div>
+
+<main>
+
+<!-- ════════════════════════════════════════════
+     PANEL 1 : ANALYSE GRAMMATICALE
+════════════════════════════════════════════ -->
+<div class="panel active" id="panel-gram">
+
+  <div class="section-card">
+    <div class="section-header">
+      <h2>⚙️ Qu'est-ce que l'analyse grammaticale ?</h2>
+    </div>
+    <div class="section-body">
+      <p>L'analyse grammaticale consiste à donner, pour un mot ou groupe de mots souligné dans le texte, <strong>deux informations</strong> :</p>
+      <div class="rule-box green">
+        <strong>1. La NATURE</strong> → ce qu'est le mot (sa classe grammaticale)<br>
+        <strong>2. La FONCTION</strong> → ce que fait le mot dans la phrase (son rôle)<br><br>
+        <span class="ar">الطبيعة = نوع الكلمة &nbsp;|&nbsp; الوظيفة = دور الكلمة في الجملة</span>
+      </div>
+      <div class="piege">
+        <strong>Le piège classique :</strong> écrire "adjectif qualificatif" à la place de "épithète". La <strong>nature</strong> c'est ce que le mot <em>est</em> ; la <strong>fonction</strong> c'est ce qu'il <em>fait</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- NATURES -->
+  <div class="section-card">
+    <div class="section-header green">
+      <h2>📋 Les natures (classes grammaticales)</h2>
+      <span class="badge">أنواع الكلمات</span>
+    </div>
+    <div class="section-body">
+      <div class="table-wrap">
+        <table>
+          <thead class="green"><tr><th>Nature</th><th>Exemples</th><th class="ar-cell">بالعربية</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Nom commun</strong></td><td>père, mutation, feinte</td><td class="ar-cell">اسم عام</td></tr>
+            <tr><td><strong>Nom propre</strong></td><td>Raabi, Dakar, Senghor</td><td class="ar-cell">اسم علم</td></tr>
+            <tr><td><strong>Verbe conjugué</strong></td><td>réprouve, a remarqué, fallait</td><td class="ar-cell">فعل مصرّف</td></tr>
+            <tr><td><strong>Verbe à l'infinitif</strong></td><td>oublier, savoir, partir</td><td class="ar-cell">فعل مصدري</td></tr>
+            <tr><td><strong>Participe passé</strong></td><td>meublée, réitérés, aménagée</td><td class="ar-cell">اسم المفعول</td></tr>
+            <tr><td><strong>Adjectif qualificatif</strong></td><td>enivrante, assidu, individualiste</td><td class="ar-cell">الصفة / النعت</td></tr>
+            <tr><td><strong>Pronom personnel</strong></td><td>elle, il, nous, se</td><td class="ar-cell">ضمير شخصي</td></tr>
+            <tr><td><strong>Pronom relatif</strong></td><td>qui, que, dont, où</td><td class="ar-cell">ضمير موصول</td></tr>
+            <tr><td><strong>Pronom démonstratif</strong></td><td>celui-ci, cela, ce</td><td class="ar-cell">ضمير إشاري</td></tr>
+            <tr><td><strong>Adverbe</strong></td><td>toujours, plus, jamais, bien</td><td class="ar-cell">ظرف / حال</td></tr>
+            <tr><td><strong>Préposition</strong></td><td>de, à, par, pour, sans</td><td class="ar-cell">حرف الجر</td></tr>
+            <tr><td><strong>Conj. de coordination</strong></td><td>mais, ou, et, donc, or, ni, car</td><td class="ar-cell">حرف عطف</td></tr>
+            <tr><td><strong>Conj. de subordination</strong></td><td>que, si, parce que, lorsque</td><td class="ar-cell">حرف ربط تابع</td></tr>
+            <tr><td><strong>Article défini/indéfini</strong></td><td>le, la, les, un, une, des</td><td class="ar-cell">أداة التعريف / التنكير</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FONCTIONS -->
+  <div class="section-card">
+    <div class="section-header violet">
+      <h2>🎯 Les fonctions grammaticales</h2>
+      <span class="badge">وظائف الكلمات</span>
+    </div>
+    <div class="section-body">
+      <div class="table-wrap">
+        <table>
+          <thead class="violet"><tr><th>Fonction</th><th>Question pour trouver</th><th class="ar-cell">بالعربية</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Sujet du verbe</strong></td><td>Qui fait l'action ?</td><td class="ar-cell">الفاعل / المبتدأ</td></tr>
+            <tr><td><strong>COD</strong></td><td>Verbe + quoi ? / qui ? (sans prép.)</td><td class="ar-cell">المفعول به المباشر</td></tr>
+            <tr><td><strong>COI</strong></td><td>Verbe + à qui ? / de quoi ? (avec prép.)</td><td class="ar-cell">المفعول به غير المباشر</td></tr>
+            <tr><td><strong>Attribut du sujet</strong></td><td>Après être, devenir, sembler, paraître...</td><td class="ar-cell">خبر المبتدأ</td></tr>
+            <tr><td><strong>Épithète</strong></td><td>Adjectif directement lié au nom</td><td class="ar-cell">النعت المباشر</td></tr>
+            <tr><td><strong>Apposé(e)</strong></td><td>Séparé du nom par une virgule</td><td class="ar-cell">نعت تفسيري</td></tr>
+            <tr><td><strong>Complément du nom</strong></td><td>De + nom (précise un autre nom)</td><td class="ar-cell">مضاف إليه</td></tr>
+            <tr><td><strong>CC de lieu (CCL)</strong></td><td>Où ? / D'où ? / Jusqu'où ?</td><td class="ar-cell">ظرف المكان</td></tr>
+            <tr><td><strong>CC de temps (CCT)</strong></td><td>Quand ? / Depuis quand ?</td><td class="ar-cell">ظرف الزمان</td></tr>
+            <tr><td><strong>CC de manière (CCM)</strong></td><td>Comment ? / De quelle façon ?</td><td class="ar-cell">ظرف الحال</td></tr>
+            <tr><td><strong>CC de cause (CCC)</strong></td><td>Pourquoi ? / Pour quelle raison ?</td><td class="ar-cell">ظرف السبب</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <strong>Astuce :</strong> Pour trouver la fonction, posez toujours la question au verbe. "Elle réprouve <u>la feinte</u>" → elle réprouve <em>quoi</em> ? → "la feinte" → COD.
+      </div>
+
+      <!-- Exemple d'analyse -->
+      <div class="phrase-box">
+        <div class="titre">📝 Exemple tiré de l'épreuve 2025</div>
+        <div class="phrase">« Elle a remarqué que <u>celui-ci</u> est <u>plus assidu</u> <u>à la maison</u>. »</div>
+        <div class="decomp">
+          <div class="decomp-row">
+            <div class="num">1</div>
+            <div class="content">
+              <span class="prop">« celui-ci »</span> →
+              <span class="label">Nature :</span> pronom démonstratif &nbsp;|&nbsp;
+              <span class="label">Fonction :</span> sujet du verbe <em>est</em>
+            </div>
+          </div>
+          <div class="decomp-row">
+            <div class="num green">2</div>
+            <div class="content">
+              <span class="prop green">« plus assidu »</span> →
+              <span class="label">Nature :</span> adjectif qualificatif (comparatif) &nbsp;|&nbsp;
+              <span class="label">Fonction :</span> attribut du sujet <em>celui-ci</em>
+            </div>
+          </div>
+          <div class="decomp-row">
+            <div class="num gold">3</div>
+            <div class="content">
+              <span class="prop" style="color:var(--or)">« à la maison »</span> →
+              <span class="label">Nature :</span> groupe nominal prépositionnel &nbsp;|&nbsp;
+              <span class="label">Fonction :</span> CC de lieu du verbe <em>est</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phrase-box">
+        <div class="titre">📝 Exemple tiré de l'épreuve 2023</div>
+        <div class="phrase">« Épargne-nous <u>la honte</u> <u>parmi nos semblables</u>. »</div>
+        <div class="decomp">
+          <div class="decomp-row">
+            <div class="num">1</div>
+            <div class="content">
+              <span class="prop">« la honte »</span> →
+              <span class="label">Nature :</span> groupe nominal (article + nom commun) &nbsp;|&nbsp;
+              <span class="label">Fonction :</span> COD du verbe <em>épargne</em>
+            </div>
+          </div>
+          <div class="decomp-row">
+            <div class="num green">2</div>
+            <div class="content">
+              <span class="prop green">« parmi nos semblables »</span> →
+              <span class="label">Nature :</span> groupe nominal prépositionnel &nbsp;|&nbsp;
+              <span class="label">Fonction :</span> CC de lieu du verbe <em>épargne</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin panel-gram -->
+
+
+<!-- ════════════════════════════════════════════
+     PANEL 2 : ANALYSE LOGIQUE
+════════════════════════════════════════════ -->
+<div class="panel" id="panel-logique">
+
+  <div class="section-card">
+    <div class="section-header" style="background:var(--teal)">
+      <h2>🔗 Qu'est-ce que l'analyse logique ?</h2>
+    </div>
+    <div class="section-body">
+      <p>L'analyse logique porte sur <strong>une phrase entière</strong>. Elle consiste à <strong>identifier, nommer et analyser chaque proposition</strong> contenue dans cette phrase.</p>
+      <div class="rule-box" style="border-left-color:var(--teal)">
+        <strong>Règle de base :</strong> autant de <strong>verbes conjugués</strong> = autant de <strong>propositions</strong><br>
+        <span class="ar">عدد الأفعال المصرّفة = عدد الجمل / المقاطع</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LES 3 LIENS -->
+  <div class="section-card">
+    <div class="section-header green">
+      <h2>📌 Les 3 types de liens entre propositions</h2>
+      <span class="badge">أنواع الروابط</span>
+    </div>
+    <div class="section-body">
+
+      <!-- JUXTAPOSÉES -->
+      <p><strong>1. Propositions juxtaposées</strong> <span class="ar" style="font-size:1rem;display:inline">جملتان متجاورتان</span></p>
+      <div class="rule-box">
+        Liées par la <strong>ponctuation</strong> : virgule ( , ) &nbsp;|&nbsp; point-virgule ( ; ) &nbsp;|&nbsp; deux-points ( : )<br>
+        Aucun mot de liaison entre elles.
+      </div>
+      <div class="phrase-box">
+        <div class="titre">Exemple</div>
+        <div class="phrase">« <em>Il priait</em> ; <em>elle observait en silence</em>. »</div>
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">P1</div><div class="content"><span class="prop">« Il priait »</span> → Proposition indépendante juxtaposée</div></div>
+          <div class="decomp-row"><div class="num green">P2</div><div class="content"><span class="prop green">« elle observait en silence »</span> → Proposition indépendante juxtaposée</div></div>
+        </div>
+      </div>
+
+      <!-- COORDONNÉES -->
+      <p style="margin-top:1rem"><strong>2. Propositions coordonnées</strong> <span class="ar" style="font-size:1rem;display:inline">جملتان متنسِّقتان</span></p>
+      <div class="rule-box gold">
+        Liées par une <strong>conjonction de coordination</strong> :<br>
+        <strong style="letter-spacing:.05em">MAIS — OU — ET — DONC — OR — NI — CAR</strong><br>
+        <span style="font-size:.78rem;color:var(--texte-doux)">Moyen mnémotechnique : <strong>MOEDONNIC</strong> ou <strong>mais où est donc Ornicar ?</strong></span>
+      </div>
+      <div class="phrase-box">
+        <div class="titre">Exemple</div>
+        <div class="phrase">« <em>Il insistait</em> <strong>mais</strong> <em>elle ne répondait pas</em>. »</div>
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">P1</div><div class="content"><span class="prop">« Il insistait »</span> → Proposition indépendante</div></div>
+          <div class="decomp-row"><div class="num green">P2</div><div class="content"><span class="prop green">« elle ne répondait pas »</span> → Proposition indépendante coordonnée à P1 par la conjonction de coordination <em>mais</em></div></div>
+        </div>
+      </div>
+
+      <!-- SUBORDONNÉES -->
+      <p style="margin-top:1rem"><strong>3. Propositions subordonnées</strong> <span class="ar" style="font-size:1rem;display:inline">جمل فرعية / تابعة</span></p>
+      <div class="rule-box" style="border-left-color:var(--bleu)">
+        Une proposition <strong>dépend</strong> d'une autre appelée <strong>proposition principale</strong>. Elle est introduite par un mot subordonnant.
+      </div>
+
+      <div class="table-wrap" style="margin-top:.8rem">
+        <table>
+          <thead><tr><th>Type</th><th>Introduit par</th><th>Exemple</th><th class="ar-cell">بالعربية</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Complétive</strong> (COD)</td>
+              <td>que</td>
+              <td>Elle sait <em>que son père souffre.</em></td>
+              <td class="ar-cell">جملة تتميمية</td>
+            </tr>
+            <tr>
+              <td><strong>Relative</strong></td>
+              <td>qui, que, dont, où</td>
+              <td>Le père <em>qui priait</em> était triste.</td>
+              <td class="ar-cell">جملة صفية</td>
+            </tr>
+            <tr>
+              <td><strong>Circ. de temps</strong></td>
+              <td>quand, lorsque, dès que</td>
+              <td><em>Quand il rentra</em>, elle se tut.</td>
+              <td class="ar-cell">ظرفية زمانية</td>
+            </tr>
+            <tr>
+              <td><strong>Circ. de cause</strong></td>
+              <td>parce que, puisque, car</td>
+              <td>Elle se ferme <em>parce qu'elle souffre.</em></td>
+              <td class="ar-cell">ظرفية سببية</td>
+            </tr>
+            <tr>
+              <td><strong>Circ. de but</strong></td>
+              <td>pour que, afin que</td>
+              <td>Il parle <em>pour qu'elle comprenne.</em></td>
+              <td class="ar-cell">ظرفية غائية</td>
+            </tr>
+            <tr>
+              <td><strong>Circ. de condition</strong></td>
+              <td>si</td>
+              <td><em>Si tu reviens</em>, je serai là.</td>
+              <td class="ar-cell">ظرفية شرطية</td>
+            </tr>
+            <tr>
+              <td><strong>Circ. de concession</strong></td>
+              <td>bien que, quoique</td>
+              <td><em>Bien qu'il insiste</em>, elle refuse.</td>
+              <td class="ar-cell">ظرفية استدراكية</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXEMPLE COMPLET ÉPREUVE -->
+  <div class="section-card">
+    <div class="section-header gold">
+      <h2>📝 Exemple complet — Épreuve 2025</h2>
+      <span class="badge" style="background:rgba(0,0,0,.1)">Corrigé type</span>
+    </div>
+    <div class="section-body">
+      <div class="phrase-box">
+        <div class="titre">Phrase à analyser</div>
+        <div class="phrase">« Elle a remarqué <strong>que</strong> celui-ci est plus assidu à la maison qu'il ne l'était auparavant. »</div>
+      </div>
+
+      <div class="schema">
+        <div class="schema-box pp">P. Principale</div>
+        <div class="schema-arrow">+</div>
+        <div class="schema-box conj">que</div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-box ps">P. Sub. Complétive</div>
+      </div>
+
+      <div class="decomp" style="margin-top:.5rem">
+        <div class="decomp-row">
+          <div class="num">P1</div>
+          <div class="content">
+            <span class="prop">« Elle a remarqué »</span> →
+            <span class="label">Proposition principale</span>
+          </div>
+        </div>
+        <div class="decomp-row">
+          <div class="num green">P2</div>
+          <div class="content">
+            <span class="prop green">« que celui-ci est plus assidu à la maison qu'il ne l'était auparavant »</span> →
+            <span class="label">Proposition subordonnée complétive</span>, COD du verbe <em>a remarqué</em>, introduite par la conjonction de subordination <em>que</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="phrase-box" style="margin-top:1rem">
+        <div class="titre">Phrase à analyser — Épreuve 2023</div>
+        <div class="phrase">« Je prie pour que ton âme soit restée pure. »</div>
+      </div>
+      <div class="schema">
+        <div class="schema-box pp">P. Principale</div>
+        <div class="schema-arrow">+</div>
+        <div class="schema-box conj">pour que</div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-box ps">P. Sub. de but</div>
+      </div>
+      <div class="decomp" style="margin-top:.5rem">
+        <div class="decomp-row">
+          <div class="num">P1</div>
+          <div class="content"><span class="prop">« Je prie »</span> → <span class="label">Proposition principale</span></div>
+        </div>
+        <div class="decomp-row">
+          <div class="num green">P2</div>
+          <div class="content">
+            <span class="prop green">« pour que ton âme soit restée pure »</span> →
+            <span class="label">Proposition subordonnée circonstancielle de but</span>, introduite par la locution conjonctive <em>pour que</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin panel-logique -->
+
+
+<!-- ════════════════════════════════════════════
+     PANEL 3 : MÉTHODE PAS À PAS
+════════════════════════════════════════════ -->
+<div class="panel" id="panel-methode">
+
+  <div class="section-card">
+    <div class="section-header" style="background:var(--rouge)">
+      <h2>📐 Méthode : Analyse grammaticale</h2>
+    </div>
+    <div class="section-body">
+      <div class="rule-box red" style="border-left-color:var(--rouge)">
+        <strong>3 questions à se poser dans l'ordre :</strong><br><br>
+        <strong>1.</strong> C'est quoi comme <em>type</em> de mot ? → <strong>NATURE</strong><br>
+        <strong>2.</strong> À quoi ça sert dans cette phrase ? → <strong>FONCTION</strong><br>
+        <strong>3.</strong> De quel mot / verbe dépend-il ? → <strong>COMPLÉTER LA FONCTION</strong>
+      </div>
+
+      <p><strong>Formule à utiliser dans la copie :</strong></p>
+      <div class="rule-box">
+        <em>« [mot souligné] »</em> est un(e) <strong>[NATURE]</strong>, <strong>[FONCTION]</strong> de <em>[verbe ou nom]</em>.<br><br>
+        <strong>Exemple :</strong> « assidu » est un adjectif qualificatif, attribut du sujet « celui-ci ».
+      </div>
+
+      <div class="tip">
+        <strong>Gagner du temps :</strong> cherche d'abord le verbe de la phrase, puis pose les questions autour de lui. Tout tourne autour du verbe.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" style="background:var(--teal)">
+      <h2>📐 Méthode : Analyse logique</h2>
+    </div>
+    <div class="section-body">
+      <div class="rule-box" style="border-left-color:var(--teal)">
+        <strong>4 étapes dans l'ordre :</strong><br><br>
+        <strong>Étape 1 :</strong> Compter les <strong>verbes conjugués</strong> → c'est le nombre de propositions<br>
+        <strong>Étape 2 :</strong> Y a-t-il une <strong>conjonction de subordination</strong> ? (que, si, parce que...) → si oui : une subordonnée<br>
+        <strong>Étape 3 :</strong> Y a-t-il une <strong>conjonction de coordination</strong> (mais, et, car...) ? → si oui : coordonnées<br>
+        <strong>Étape 4 :</strong> Y a-t-il seulement de la <strong>ponctuation</strong> entre elles ? → si oui : juxtaposées
+      </div>
+
+      <p><strong>Formule à utiliser dans la copie :</strong></p>
+      <div class="rule-box gold">
+        <strong>Pour la principale :</strong><br>
+        <em>« [proposition] »</em> : proposition principale.<br><br>
+        <strong>Pour la subordonnée :</strong><br>
+        <em>« [proposition] »</em> : proposition subordonnée <strong>[type]</strong>, <strong>[fonction]</strong> du verbe <em>[verbe de la principale]</em>, introduite par <strong>[mot subordonnant]</strong>.<br><br>
+        <strong>Pour les coordonnées :</strong><br>
+        <em>« P1 »</em> : proposition indépendante. <em>« P2 »</em> : proposition indépendante coordonnée à P1 par la conjonction de coordination <em>[mot]</em>.
+      </div>
+
+      <div class="piege">
+        <strong>Piège fréquent :</strong> confondre "que" pronom relatif (introduit une relative) et "que" conjonction de subordination (introduit une complétive). <br>
+        → "que" relatif <em>remplace un nom</em> : « La fille <strong>que</strong> j'aime » (que = la fille)<br>
+        → "que" conjonctif <em>ne remplace rien</em> : « Je sais <strong>que</strong> tu souffres »
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLEAU RÉCAP -->
+  <div class="section-card">
+    <div class="section-header">
+      <h2>📊 Tableau récapitulatif — à mémoriser</h2>
+    </div>
+    <div class="section-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Lien</th><th>Formule de réponse</th><th class="ar-cell">بالعربية</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Juxtaposées</strong></td><td>, ; :</td><td>Prop. indépendante juxtaposée</td><td class="ar-cell">متجاورتان</td></tr>
+            <tr><td><strong>Coordonnées</strong></td><td>mais, et, car...</td><td>Prop. indép. coordonnée par <em>[conj.]</em></td><td class="ar-cell">متنسِّقتان</td></tr>
+            <tr><td><strong>Sub. complétive</strong></td><td>que</td><td>Sub. complétive, COD de <em>[verbe]</em></td><td class="ar-cell">تتميمية</td></tr>
+            <tr><td><strong>Sub. relative</strong></td><td>qui, que, dont, où</td><td>Sub. relative, épithète de <em>[nom]</em></td><td class="ar-cell">صفية / نعتية</td></tr>
+            <tr><td><strong>Sub. circ. cause</strong></td><td>parce que, puisque</td><td>Sub. circ. de cause</td><td class="ar-cell">سببية</td></tr>
+            <tr><td><strong>Sub. circ. but</strong></td><td>pour que, afin que</td><td>Sub. circ. de but</td><td class="ar-cell">غائية</td></tr>
+            <tr><td><strong>Sub. circ. temps</strong></td><td>quand, lorsque, dès que</td><td>Sub. circ. de temps</td><td class="ar-cell">زمانية</td></tr>
+            <tr><td><strong>Sub. circ. condition</strong></td><td>si</td><td>Sub. circ. de condition</td><td class="ar-cell">شرطية</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- fin panel-methode -->
+
+
+<!-- ════════════════════════════════════════════
+     PANEL 4 : EXERCICES CORRIGÉS
+════════════════════════════════════════════ -->
+<div class="panel" id="panel-exercices">
+
+  <div class="section-card">
+    <div class="section-header gold">
+      <h2>✏️ Exercices d'analyse grammaticale</h2>
+    </div>
+    <div class="section-body">
+      <p>Donnez la <strong>nature</strong> et la <strong>fonction</strong> des mots soulignés. Cliquez sur « Voir la correction » après votre réponse.</p>
+    </div>
+  </div>
+
+  <!-- EXO GRAM 1 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice G1 — Épreuve 2025</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« Elle a remarqué que celui-ci est plus <u>assidu</u> à <u>la maison</u> qu'il ne l'était <u>auparavant</u>. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">1</div><div class="content"><strong>« assidu »</strong> → <span class="tag tag-nat">Nature</span> adjectif qualificatif &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> attribut du sujet <em>celui-ci</em></div></div>
+          <div class="decomp-row"><div class="num green">2</div><div class="content"><strong>« la maison »</strong> → <span class="tag tag-nat">Nature</span> groupe nominal (article défini + nom commun) &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> complément circonstanciel de lieu du verbe <em>est</em></div></div>
+          <div class="decomp-row"><div class="num gold">3</div><div class="content"><strong>« auparavant »</strong> → <span class="tag tag-nat">Nature</span> adverbe de temps &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> complément circonstanciel de temps du verbe <em>était</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXO GRAM 2 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice G2 — Épreuve 2023</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« Tu dois continuer à respecter <u>nos coutumes</u> et <u>épargner</u> la honte à <u>tes sœurs</u>. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">1</div><div class="content"><strong>« nos coutumes »</strong> → <span class="tag tag-nat">Nature</span> groupe nominal (adj. possessif + nom commun) &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> COD du verbe <em>respecter</em></div></div>
+          <div class="decomp-row"><div class="num green">2</div><div class="content"><strong>« épargner »</strong> → <span class="tag tag-nat">Nature</span> verbe à l'infinitif &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> COD du verbe <em>dois</em> (infinitif complétif)</div></div>
+          <div class="decomp-row"><div class="num gold">3</div><div class="content"><strong>« tes sœurs »</strong> → <span class="tag tag-nat">Nature</span> groupe nominal (adj. possessif + nom commun) &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> COI du verbe <em>épargner</em> (épargner la honte à qui ?)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXO GRAM 3 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice G3 — Niveau moyen</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« <u>Enivrante</u>, l'odeur d'encens s'exhale de la pièce <u>aménagée</u> pour les prières. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">1</div><div class="content"><strong>« Enivrante »</strong> → <span class="tag tag-nat">Nature</span> adjectif qualificatif &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> apposé au sujet <em>l'odeur d'encens</em> (séparé par une virgule)</div></div>
+          <div class="decomp-row"><div class="num green">2</div><div class="content"><strong>« aménagée »</strong> → <span class="tag tag-nat">Nature</span> participe passé (adjectif verbal) &nbsp;|&nbsp; <span class="tag tag-fn">Fonction</span> épithète du nom <em>pièce</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card" style="margin-top:1.5rem">
+    <div class="section-header" style="background:var(--teal)">
+      <h2>✏️ Exercices d'analyse logique</h2>
+    </div>
+    <div class="section-body">
+      <p>Faites l'analyse logique des phrases suivantes. Identifiez et nommez chaque proposition.</p>
+    </div>
+  </div>
+
+  <!-- EXO LOG 1 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice L1 — Épreuve 2025</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« Il fallait savoir oublier pour que la vie continue. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <div class="schema">
+          <div class="schema-box pp">P. Principale</div>
+          <div class="schema-arrow">+</div>
+          <div class="schema-box conj">pour que</div>
+          <div class="schema-arrow">→</div>
+          <div class="schema-box ps">Sub. de but</div>
+        </div>
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">P1</div><div class="content"><span class="prop">« Il fallait savoir oublier »</span> → <strong>Proposition principale</strong></div></div>
+          <div class="decomp-row"><div class="num green">P2</div><div class="content"><span class="prop green">« pour que la vie continue »</span> → <strong>Proposition subordonnée circonstancielle de but</strong>, introduite par la locution conjonctive <em>pour que</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXO LOG 2 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice L2 — Épreuve 2023</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« Je me fais vieux et tu es mon seul fils. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <div class="schema">
+          <div class="schema-box pp">P1 indép.</div>
+          <div class="schema-arrow">+</div>
+          <div class="schema-box conj">et</div>
+          <div class="schema-arrow">→</div>
+          <div class="schema-box pp">P2 indép.</div>
+        </div>
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">P1</div><div class="content"><span class="prop">« Je me fais vieux »</span> → <strong>Proposition indépendante</strong></div></div>
+          <div class="decomp-row"><div class="num green">P2</div><div class="content"><span class="prop green">« tu es mon seul fils »</span> → <strong>Proposition indépendante coordonnée</strong> à P1 par la conjonction de coordination <em>et</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXO LOG 3 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice L3 — Niveau moyen</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« Raabi réprouve la feinte parce qu'elle aime la vérité. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <div class="schema">
+          <div class="schema-box pp">P. Principale</div>
+          <div class="schema-arrow">+</div>
+          <div class="schema-box conj">parce que</div>
+          <div class="schema-arrow">→</div>
+          <div class="schema-box ps">Sub. de cause</div>
+        </div>
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">P1</div><div class="content"><span class="prop">« Raabi réprouve la feinte »</span> → <strong>Proposition principale</strong></div></div>
+          <div class="decomp-row"><div class="num green">P2</div><div class="content"><span class="prop green">« parce qu'elle aime la vérité »</span> → <strong>Proposition subordonnée circonstancielle de cause</strong>, introduite par la locution conjonctive <em>parce que</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXO LOG 4 -->
+  <div class="exo-card">
+    <div class="exo-header" onclick="toggleExo(this)">
+      <h3>Exercice L4 — Niveau avancé</h3>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="exo-body">
+      <div class="exo-phrase">« Elle n'a jamais fourni d'explication à sa mère, bien qu'elle sache que celle-ci souffre. »</div>
+      <button class="show-btn" onclick="showCorr(this)">Voir la correction</button>
+      <div class="correction">
+        <p style="margin-bottom:.6rem;font-size:.82rem;color:var(--texte-doux)"><strong>3 verbes conjugués = 3 propositions</strong></p>
+        <div class="decomp">
+          <div class="decomp-row"><div class="num">P1</div><div class="content"><span class="prop">« Elle n'a jamais fourni d'explication à sa mère »</span> → <strong>Proposition principale</strong></div></div>
+          <div class="decomp-row"><div class="num green">P2</div><div class="content"><span class="prop green">« bien qu'elle sache »</span> → <strong>Proposition subordonnée circonstancielle de concession</strong>, introduite par la locution conjonctive <em>bien que</em> (+ subjonctif)</div></div>
+          <div class="decomp-row"><div class="num gold">P3</div><div class="content"><span class="prop" style="color:var(--or)">« que celle-ci souffre »</span> → <strong>Proposition subordonnée complétive</strong>, COD du verbe <em>sache</em>, introduite par la conjonction de subordination <em>que</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- fin panel-exercices -->
+
+</main>
+
+<footer>
+  Cours · Méthode · Exercices — BAC Sénégal Série L-AR<br>
+  Source des phrases : épreuves officielles officedubac.sn
+</footer>
+
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleExo(header){
+  header.classList.toggle('open');
+  const body=header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function showCorr(btn){
+  const corr=btn.nextElementSibling;
+  corr.classList.add('visible');
+  btn.style.display='none';
+}
+
+// Calcul dynamique du top des tabs selon la hauteur réelle de la nav
+function setTabsTop(){
+  const navH = document.querySelector('nav').offsetHeight;
+  document.documentElement.style.setProperty('--nav-h', navH + 'px');
+}
+setTabsTop();
+window.addEventListener('resize', setTabsTop);
+</script>
+</body>
+</html>
